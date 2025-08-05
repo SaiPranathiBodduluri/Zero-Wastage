@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Waste Grocery - Project Estimate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #2ECC71;
+        }
+        
+        .section h2 {
+            color: #2C3E50;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .icon {
+            width: 30px;
+            height: 30px;
+            background: #2ECC71;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .task-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .task-card h3 {
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .task-card p {
+            color: #6c757d;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .time-estimate {
+            background: #E3F2FD;
+            color: #1976D2;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .complexity {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .easy { background: #E8F5E8; color: #2E7D32; }
+        .medium { background: #FFF3E0; color: #F57C00; }
+        .hard { background: #FFEBEE; color: #C62828; }
+        
+        .timeline {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .timeline h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .timeline-week {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-right: 20px;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .considerations {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .considerations h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .considerations ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .considerations li {
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .total-estimate {
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .total-estimate h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .total-estimate p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .interactive-controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .slider-container {
+            margin-bottom: 20px;
+        }
+        
+        .slider-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 5px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #2ECC71;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #2ECC71;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌱 Zero Waste Grocery Frontend</h1>
+            <p>Project Estimation & Planning Tool</p>
+        </div>
+        
+        <div class="content">
+            <div class="interactive-controls">
+                <h3 style="margin-bottom: 20px; color: #2C3E50;">📊 Adjust Project Scope</h3>
+                <div class="slider-container">
+                    <label for="complexitySlider">Project Complexity: <span id="complexityLabel">Medium</span></label>
+                    <input type="range" min="1" max="3" value="2" class="slider" id="complexitySlider">
+                </div>
+                <div class="slider-container">
+                    <label for="featuresSlider">Number of Features: <span id="featuresLabel">5</span></label>
+                    <input type="range" min="3" max="8" value="5" class="slider" id="featuresSlider">
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><span class="icon">🎨</span>Frontend Development Tasks</h2>
+                <div class="task-grid" id="taskGrid">
+                    <!-- Tasks will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <h2>📅 Project Timeline</h2>
+                <div id="timelineContainer">
+                    <!-- Timeline will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="considerations">
+                <h2>💡 Important Considerations</h2>
+                <ul>
+                    <li><strong>Responsive Design:</strong> Ensure mobile-first approach for grocery shoppers on-the-go</li>
+                    <li><strong>Performance:</strong> Fast loading for product images and quick browsing experience</li>
+                    <li><strong>Accessibility:</strong> Clear pricing, expiry dates, and discount information</li>
+                    <li><strong>Visual Hierarchy:</strong> Highlight discounts and savings prominently</li>
+                    <li><strong>Future Backend:</strong> Structure HTML/CSS to easily integrate with future API calls</li>
+                    <li><strong>SEO Ready:</strong> Semantic HTML structure for search engine visibility</li>
+                </ul>
+            </div>
+            
+            <div class="total-estimate">
+                <h2 id="totalDays">12-18 Days</h2>
+                <p>Estimated development time for a skilled frontend developer</p>
+                <p style="margin-top: 10px; font-size: 1rem;">⏰ <span id="totalHours">60-90 hours</span> total work</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tasks = [
+            {
+                name: "Homepage Design",
+                description: "Landing page with hero section, featured deals, categories, and call-to-action",
+                baseHours: 8,
+                complexity: "easy"
+            },
+            {
+                name: "Product Listing Page",
+                description: "Grid/list view of discounted items with filters, sorting, and pagination",
+                baseHours: 12,
+                complexity: "medium"
+            },
+            {
+                name: "Product Detail Page",
+                description: "Individual product view with images, pricing, expiry info, and discount details",
+                baseHours: 8,
+                complexity: "easy"
+            },
+            {
+                name: "Shopping Cart Interface",
+                description: "Add to cart, quantity controls, remove items, and total calculation",
+                baseHours: 10,
+                complexity: "medium"
+            },
+            {
+                name: "Checkout Process",
+                description: "Multi-step checkout form with address, payment info, and order summary",
+                baseHours: 12,
+                complexity: "hard"
+            },
+            {
+                name: "User Account Pages",
+                description: "Login, registration, profile, and order history pages",
+                baseHours: 10,
+                complexity: "medium"
+            },
+            {
+                name: "Search & Filter System",
+                description: "Search bar, category filters, price range, and expiry date filters",
+                baseHours: 8,
+                complexity: "medium"
+            },
+            {
+                name: "Responsive Design",
+                description: "Mobile-first responsive design across all pages and components",
+                baseHours: 15,
+                complexity: "hard"
+            }
+        ];
+
+        function updateEstimate() {
+            const complexitySlider = document.getElementById('complexitySlider');
+            const featuresSlider = document.getElementById('featuresSlider');
+            const complexityLabel = document.getElementById('complexityLabel');
+            const featuresLabel = document.getElementById('featuresLabel');
+            
+            const complexityLevels = ['Basic', 'Medium', 'Advanced'];
+            const complexityMultipliers = [0.8, 1.0, 1.3];
+            
+            const complexity = parseInt(complexitySlider.value);
+            const numFeatures = parseInt(featuresSlider.value);
+            
+            complexityLabel.textContent = complexityLevels[complexity - 1];
+            featuresLabel.textContent = numFeatures;
+            
+            // Update task grid
+            const taskGrid = document.getElementById('taskGrid');
+            taskGrid.innerHTML = '';
+            
+            const selectedTasks = tasks.slice(0, numFeatures);
+            let totalHours = 0;
+            
+            selectedTasks.forEach(task => {
+                const adjustedHours = Math.round(task.baseHours * complexityMultipliers[complexity - 1]);
+                totalHours += adjustedHours;
+                
+                const taskCard = document.createElement('div');
+                taskCard.className = 'task-card';
+                taskCard.innerHTML = `
+                    <h3>${task.name}</h3>
+                    <p>${task.description}</p>
+                    <div class="task-meta">
+                        <span class="time-estimate">${adjustedHours} hours</span>
+                        <span class="complexity ${task.complexity}">${task.complexity}</span>
+                    </div>
+                `;
+                taskGrid.appendChild(taskCard);
+            });
+            
+            // Update timeline
+            const timelineContainer = document.getElementById('timelineContainer');
+            const weeks = Math.ceil(totalHours / 20); // Assuming 20 hours per week
+            timelineContainer.innerHTML = '';
+            
+            const timelineItems = [
+                'Planning & Wireframing',
+                'Homepage & Core Layout',
+                'Product Pages & Listings',
+                'Interactive Features',
+                'Responsive Design & Polish',
+                'Testing & Optimization'
+            ];
+            
+            timelineItems.slice(0, Math.min(weeks, 6)).forEach((item, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
+                timelineItem.innerHTML = `
+                    <div class="timeline-week">Week ${index + 1}</div>
+                    <div>${item}</div>
+                `;
+                timelineContainer.appendChild(timelineItem);
+            });
+            
+            // Update totals
+            const days = Math.ceil(totalHours / 5); // 5 hours per day
+            document.getElementById('totalDays').textContent = `${Math.round(days * 0.8)}-${Math.round(days * 1.2)} Days`;
+            document.getElementById('totalHours').textContent = `${Math.round(totalHours * 0.8)}-${Math.round(totalHours * 1.2)} hours`;
+        }
+        
+        document.getElementById('complexitySlider').addEventListener('input', updateEstimate);
+        document.getElementById('featuresSlider').addEventListener('input', updateEstimate);
+        
+        // Initialize
+        updateEstimate();
+    </script>
+</body>
+</html>
