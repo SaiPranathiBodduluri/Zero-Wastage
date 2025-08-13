@@ -1,1 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zero Waste Grocery Shopping</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f4f4f4;
+    }
+    header {
+        background-color: #2e7d32;
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+    header h1 {
+        margin: 0;
+    }
+    .description {
+        padding: 15px;
+        text-align: center;
+        background: white;
+        margin-bottom: 20px;
+    }
+    .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+    .product {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .product h3 {
+        margin: 10px 0 5px;
+        font-size: 18px;
+    }
+    .price {
+        color: #e53935;
+        font-weight: bold;
+    }
+    .old-price {
+        text-decoration: line-through;
+        color: gray;
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    .expiry {
+        font-size: 13px;
+        color: #555;
+        margin-top: 5px;
+    }
+    .quantity {
+        margin-top: 8px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 70px;
+    }
+    button {
+        background-color: #2e7d32;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #1b5e20;
+    }
+    footer {
+        background-color: #2e7d32;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
 
+<header>
+    <h1>Zero Waste Grocery Shopping</h1>
+</header>
+
+<div class="description">
+    <p>Buy unsold or near-expiry groceries at discounted prices. Help reduce waste and save money!</p>
+</div>
+
+<div class="products" id="productList"></div>
+
+<footer>
+    <p>&copy; 2025 Zero Waste Grocery Shopping | Save Food, Save Money</p>
+</footer>
+
+<script>
+const products = [
+    // Fresh Produce (No expiry)
+    {name: "Fresh Apples (1kg)", category: "Fresh Produce", price: 50, oldPrice: 80},
+    {name: "Bananas (1 Dozen)", category: "Fresh Produce", price: 40, oldPrice: 60},
+    {name: "Fresh Tomatoes (1kg)", category: "Fresh Produce", price: 30, oldPrice: 50},
+    {name: "Coriander Bunch", category: "Fresh Produce", price: 15, oldPrice: 25},
+
+    // Dairy
+    {name: "Organic Milk (1L)", category: "Dairy", price: 35, oldPrice: 50, expiry: "2025-08-20"},
+    {name: "Cheddar Cheese (200g)", category: "Dairy", price: 120, oldPrice: 160, expiry: "2025-08-22"},
+    {name: "Yogurt Cup (100g)", category: "Dairy", price: 20, oldPrice: 30, expiry: "2025-08-18"},
+    {name: "Butter (500g)", category: "Dairy", price: 200, oldPrice: 250, expiry: "2025-08-25"},
+
+    // Bakery
+    {name: "Whole Wheat Bread", category: "Bakery", price: 25, oldPrice: 40, expiry: "2025-08-14"},
+    {name: "Chocolate Muffin", category: "Bakery", price: 30, oldPrice: 45, expiry: "2025-08-14"},
+    {name: "Croissant", category: "Bakery", price: 35, oldPrice: 50, expiry: "2025-08-14"},
+    {name: "Garlic Bread", category: "Bakery", price: 40, oldPrice: 60, expiry: "2025-08-15"},
+
+    // Packaged Goods
+    {name: "Basmati Rice (1kg)", category: "Packaged Goods", price: 90, oldPrice: 120, expiry: "2026-02-10"},
+    {name: "Pasta (500g)", category: "Packaged Goods", price: 50, oldPrice: 70, expiry: "2026-03-15"},
+    {name: "Potato Chips", category: "Packaged Goods", price: 20, oldPrice: 30, expiry: "2025-12-05"},
+    {name: "Instant Noodles", category: "Packaged Goods", price: 15, oldPrice: 25, expiry: "2026-01-20"},
+
+    // Frozen Foods
+    {name: "Frozen Chicken (1kg)", category: "Frozen Foods", price: 250, oldPrice: 300, expiry: "2026-06-10"},
+    {name: "Ice Cream Tub", category: "Frozen Foods", price: 150, oldPrice: 200, expiry: "2026-05-01"},
+    {name: "Frozen Peas (500g)", category: "Frozen Foods", price: 60, oldPrice: 80, expiry: "2026-04-15"},
+    {name: "Ready-to-eat Pizza", category: "Frozen Foods", price: 120, oldPrice: 150, expiry: "2026-02-28"},
+
+    // Condiments & Oils
+    {name: "Olive Oil (1L)", category: "Condiments & Oils", price: 400, oldPrice: 500, expiry: "2026-07-15"},
+    {name: "Soy Sauce (500ml)", category: "Condiments & Oils", price: 90, oldPrice: 120, expiry: "2026-05-10"},
+    {name: "Tomato Ketchup (1kg)", category: "Condiments & Oils", price: 110, oldPrice: 150, expiry: "2026-06-20"},
+    {name: "Sunflower Oil (1L)", category: "Condiments & Oils", price: 150, oldPrice: 200, expiry: "2026-07-01"},
+
+    // Beverages
+    {name: "Orange Juice (1L)", category: "Beverages", price: 80, oldPrice: 100, expiry: "2025-09-15"},
+    {name: "Soft Drink (500ml)", category: "Beverages", price: 35, oldPrice: 50, expiry: "2025-12-10"},
+    {name: "Bottled Water (1L)", category: "Beverages", price: 20, oldPrice: 25, expiry: "2026-01-01"},
+    {name: "Green Tea Pack", category: "Beverages", price: 120, oldPrice: 150, expiry: "2026-04-15"},
+
+    // Cleaning & Non-food
+    {name: "Laundry Detergent (1kg)", category: "Cleaning & Non-food", price: 150, oldPrice: 180, expiry: "2027-01-01"},
+    {name: "Dishwashing Liquid (500ml)", category: "Cleaning & Non-food", price: 50, oldPrice: 70, expiry: "2026-08-01"},
+    {name: "Bath Soap (100g)", category: "Cleaning & Non-food", price: 25, oldPrice: 35, expiry: "2027-06-01"},
+    {name: "Floor Cleaner (1L)", category: "Cleaning & Non-food", price: 90, oldPrice: 120, expiry: "2026-12-01"}
+];
+
+const productList = document.getElementById('productList');
+
+products.forEach(item => {
+    const div = document.createElement('div');
+    div.classList.add('product');
+    div.innerHTML = `
+        <h3>${item.name}</h3>
+        <p><span class="price">₹${item.price}</span> <span class="old-price">₹${item.oldPrice}</span></p>
+        ${item.expiry ? `<p class="expiry">Expiry: ${item.expiry}</p>` : ""}
+        <label>Qty:</label>
+        <input type="number" class="quantity" value="1" min="1">
+        <button>Add to Cart</button>
+    `;
+    productList.appendChild(div);
+});
+</script>
+
+</body>
+</html>
